@@ -1,0 +1,115 @@
+
+
+Chat System:
+
+Functional Requirement:
+
+1. Store User data
+2. One to One Chat
+3. Supporting only text
+4. Online presence
+5. Last active
+6. Sent/Read Acknowledgement
+7. Should be able to send messages to Offline user
+8. Storing chat history
+9. Multiple device support
+
+Good to Have
+
+1. Search chat
+2. Send Images/Video/document
+3. 
+
+
+
+
+Non Functional:
+1. High Avaibility
+2. Consistency: a) User should be able to see same chat history in all device
+				b) 2nd party should have received the message if it is being marked as received in system.
+3. Latency should be low
+
+
+
+Estimation:
+
+1.	Considering we have 300 M daily active user
+	If each user is sending 5 messages per day
+	Total no. of message = 1500 M messages per day
+	18000 req per sec (1M request per day ~ 12 req per sec)
+
+2. Considering on an average message size = 500 character
+   in One day = 1500M  * 500 character = 75 x 10 ^ 10 character = 75*10^10 bytes = 750 GB 
+   in one month = 750 GB *30 = 22.5 TB
+   
+   
+
+
+DB Design
+	Assuming that we are using SQL.
+
+	Entity:
+
+		1. User
+		2. UserStatus
+		3. Message
+		4. Chat
+
+		
+	
+	User:
+		userId
+		name
+		contactNumber
+		joinedDate
+		
+	
+	UserStatus:
+		userId
+		lastActive
+		isOnline
+		isEnabled
+		{connectedBox}?
+		
+		
+	Message:
+		messageId
+		content
+		createdTS
+		
+	Chat:	
+		chatId
+		senderId
+		receiverId
+		messageId
+		createdTS
+		
+		
+	
+Follow Up:
+	DBMS -> study??? ER Diagram		
+	Should we consider Sql/NoSql
+	if NoSql -> what type?    
+	Http Vs Websocket Design Consideration
+	
+   
+		
+
+	
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+   
+
+
