@@ -18,7 +18,7 @@ Good to Have
 
 1. Search chat
 2. Send Images/Video/document
-3. 
+3. s
 
 
 
@@ -93,7 +93,55 @@ Follow Up:
 	Http Vs Websocket Design Consideration
 	
    
+   
+   
+1. why Cassandra?
 		
+	SQL can be used as storage of message , but as data increase , Vertical Scaling , Horizantal Scaling with sharding
+    and sharding itself is huge task.
+
+	
+	Does 
+	
+	
+	
+How one to One messaging work:
+
+	
+	USER A - > Online 
+					 -> Whatsapp LB ->
+									 Whatsapp Instance (box1) ChatService , one websoxket connection is established
+									   -> ConnectionStorageService
+									     -> Store Connection object of USER A to which box it is connected in Distributed Cache (Memcache/Redis/DB)
+										 -> get all messages from db which is not received by USER A
+	USER B - > Online 
+					 -> Whatsapp LB ->
+									 Whatsapp Instance (box2) ChatService , one websoxket connection is established
+									 -> ConnectionStorageService
+									     -> Store Connection object of USER B to which box it is connected in Distributed Cache (Memcache/Redis/DB)
+										 -> get all messages from db which is not received by USER B
+									 
+	USER A -> Send Message to user B
+					-> Chat Service will notify user A that chat has been recieved by server
+					-> Chat Service will identify whom to send - User B
+					-> Chat Service will identify the connection Object of USER B (from ConnectionStorageService) 
+					-> Will send message to USER B
+					
+					-> USER B message received for this messageId
+					-> Chat Service will notify USAR A that message has been received by USER B
+					
+					
+Follow Up:
+
+1. Cassandra - Roshan
+2. How WebSocket connection wull be stored
+3. 
+
+					 
+
+
+											
+														
 
 	
 
